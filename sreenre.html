@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>screen recorder</title>
+  </head>
+  <body>
+    <video src="" width="500" height="400" controls>
+
+    </video>
+    <script type="text/javascript">
+      const start=async()=>{
+        const stream=await navigator.mediaDevices.getDisplayMeadia(
+        {video:{
+          mediaSource:"screen";
+        }
+      })
+      const data=[];
+      const mediaRecorder=new MediaRecorder(stream);
+      mediaRecorder.ondataavailable=(e)=>{
+        data.push(e.data);
+      }
+      mediaRecorder.onstop=(e)=>{
+        document.querySelector("video").src=URL.creatObjectURL(
+        new Blob(data,{
+          type:data[0].type;
+        })
+      )}
+    }
+
+      start()
+    </script>
+
+  </body>
+</html>
+getUserMeadia
